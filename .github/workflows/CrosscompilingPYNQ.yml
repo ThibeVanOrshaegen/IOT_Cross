@@ -28,18 +28,11 @@ jobs:
 
     - name: Compile Cpp
       run: arm-linux-gnueabihf-g++ -o out.exe Hello.cpp || true 
-          
-    - name: Make new map atrifacts
-      run: mkdir -p artifacts
-
-    - name: relocate out.exe file
-      run: mv out.exe artifacts/
 
     - name: Upload executable
       uses: actions/upload-artifact@v2
       with:
         name: out.exe
-        path: artifacts/
         
     - name: Run compiled file
-      run: file artifacts/out.exe
+      run: out.exe
