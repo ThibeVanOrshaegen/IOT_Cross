@@ -33,7 +33,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: out.exe
-        path: artifacts/
+        path: out.exe
         
     - name: Run compiled file
-      run: out.exe
+      run: file out.exe
