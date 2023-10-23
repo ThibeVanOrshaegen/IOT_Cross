@@ -1,0 +1,45 @@
+name: Cross compiling
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check code
+      uses: actions/checkout@v2
+      
+    - name: update 
+      run: sudo apt-get update
+      
+    - name: install Arm cross compiler c
+      run: sudo apt install --yes {gcc,binutils}-arm-linux-gnueabihf 
+      
+    - name: install Arm cross compiler cpp
+      run: sudo apt install --yes {g++,binutils}-arm-linux-gnueabihf 
+       
+    - name: Compile C
+      run: arm-linux-gnueabihf-gcc -o out.exe HelloWorld.c || true 
+
+    - name: Compile Cpp
+      run: arm-linux-gnueabihf-g++ -o out.exe HelloWorld.cpp || true 
+          
+    - name: Make new map atrifacts
+      run: mkdir -p artifacts
+
+    - name: relocate out.exe file
+      run: mv out.exe artifacts/
+
+    - name: Upload executable
+      uses: actions/upload-artifact@v2
+      with:
+        name: out.exe
+        path: artifacts/
+        
+    - name: Run compiled file
+      run: file artifacts/out.exe
