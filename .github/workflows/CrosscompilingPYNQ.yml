@@ -24,10 +24,10 @@ jobs:
       run: sudo apt install --yes {g++,binutils}-arm-linux-gnueabihf 
        
     - name: Compile C
-      run: arm-linux-gnueabihf-gcc -o out.exe HelloWorld.c || true 
+      run: arm-linux-gnueabihf-gcc -o out.exe Hello.c || true 
 
     - name: Compile Cpp
-      run: arm-linux-gnueabihf-g++ -o out.exe HelloWorld.cpp || true 
+      run: arm-linux-gnueabihf-g++ -o out.exe Hello.cpp || true 
           
     - name: Make new map atrifacts
       run: mkdir -p artifacts
